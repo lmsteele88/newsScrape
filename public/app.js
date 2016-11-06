@@ -1,12 +1,9 @@
 // grab the articles as a json
 $.getJSON('/articles', function(data) {
-  // for each one
   for (var i = 0; i<data.length; i++){
-    // display the apropos information on the page
     $('#articles').append('<p data-id="' + data[i]._id + '">'+ data[i].title + '<br />'+ data[i].link + '</p>');
   }
 });
-
 
 // whenever someone clicks a p tag
 $(document).on('click', 'p', function(){
@@ -20,7 +17,6 @@ $(document).on('click', 'p', function(){
     method: "GET",
     url: "/articles/" + thisId,
   })
-    // with that done, add the note information to the page
     .done(function( data ) {
       console.log(data);
       // the title of the article
@@ -46,8 +42,6 @@ $(document).on('click', 'p', function(){
 $(document).on('click', '#savenote', function(){
   // grab the id associated with the article from the submit button
   var thisId = $(this).attr('data-id');
-
-  // run a POST request to change the note, using what's entered in the inputs
   $.ajax({
     method: "POST",
     url: "/articles/" + thisId,
@@ -64,7 +58,7 @@ $(document).on('click', '#savenote', function(){
       $('#notes').empty();
     });
 
-  // Also, remove the values entered in the input and textarea for note entry
+  // remove the values entered in the input and textarea for note entry
   $('#titleinput').val("");
   $('#bodyinput').val("");
 });
